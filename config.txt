@@ -180,7 +180,6 @@ exec --no-startup-id xss-lock --transfer-sleep-lock --timer 3600 -- i3lock -c 00
 exec --no-startup-id nm-applet
 exec i3-config-wizard
 
-
 # Open Alacritty in workspace 1
 exec --no-startup-id i3-msg 'workspace 1; exec alacritty'
 
