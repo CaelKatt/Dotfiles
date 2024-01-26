@@ -59,7 +59,46 @@ done < "$flatpak_list"
 
 echo "Flatpak wrappers created. Please ensure $bin_dir is in your PATH."
 
+# Function to check if a Flatpak app is installed
+is_flatpak_installed() {
+    flatpak list | grep -q "$1"
+}
 
+# Function to delete unwrapped Flatpak apps
+delete_unwrapped_flatpak() {
+    local app_id="$1"
+    echo "Removing unwrapped Flatpak app: $app_id"
+    flatpak uninstall -y "$app_id"
+}
+
+# Update Flatpak apps and re-wrap
+update_and_rewrap_flatpaks() {
+    local app_id
+    local installed_apps
+    installed_apps=$(flatpak list --app --columns=application)
+
+    # Install or update Flatpak apps from the list
+    while IFS= read -r line || [[ -n "$line" ]]; do
+        if ! is_flatpak_installed "$line"; then
+            echo "Installing or updating Flatpak app: $line"
+            flatpak install -y flathub "$line"
+        fi
+        create_wrapper_script "$line"
+    done < "$flatpak_list"
+
+    # Remove Flatpaks not in the list
+    for app_id in $installed_apps; do
+        if ! grep -q "$app_id" "$flatpak_list"; then
+            delete_unwrapped_flatpak "$app_id"
+        fi
+    done
+
+    echo "Flatpak updates and re-wrappings complete."
+}
+
+update_and_rewrap_flatpaks
+
+# I3 CFG
 # Define the path to your current i3 config file
 I3_CONFIG="$HOME/.config/i3/config"
 
