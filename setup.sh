@@ -9,7 +9,7 @@ fi
 # Install necessary packages (some commands need sudo)
 echo "Updating and upgrading the system..."
 sudo apt update && sudo apt upgrade -y
-sudo apt install -y git gdm3 i3 i3blocks i3lock lxappearance materia-gtk-theme feh mc alacritty neovim xz-utils thunar neofetch gedit pulseaudio
+sudo apt install -y git gdm3 i3 i3blocks i3lock lxappearance materia-gtk-theme feh mc alacritty neovim xz-utils thunar neofetch gedit pulseaudio flatpak
 
 
 #FLATPAKS
