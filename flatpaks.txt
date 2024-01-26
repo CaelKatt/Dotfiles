@@ -1,0 +1,10 @@
+com.bitwarden.desktop
+org.signal.Signal
+com.google.Chrome
+com.discordapp.Discord
+md.obsidian.Obsidian
+org.libreoffice.LibreOffice
+com.spotify.Client
+com.github.tchx84.Flatseal
+net.mullvad.MullvadBrowser
+org.qbittorrent.qBittorrent
