@@ -11,40 +11,24 @@ echo "Updating and upgrading the system..."
 sudo apt update && sudo apt upgrade -y
 sudo apt install -y git gdm3 i3 i3blocks i3lock lxappearance materia-gtk-theme feh mc alacritty neovim xz-utils thunar neofetch gedit pulseaudio flatpak
 
-
-#FLATPAKS
-
-apt install gnome-software-plugin-flatpak
+#FLATPAKZ
+# Install GNOME Software plugin for Flatpak
+sudo apt install -y gnome-software-plugin-flatpak
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
-
-# File containing the list of Flatpak apps to install
-FILE="flatpaks.txt"
+# Define the path to the list of Flatpak apps to install
+flatpak_list="flatpaks.txt"
 
 # Check if the file exists
-if [ ! -f "$FILE" ]; then
-    echo "File not found: $FILE"
+if [ ! -f "$flatpak_list" ]; then
+    echo "File not found: $flatpak_list"
     exit 1
 fi
 
-# Loop through each line in the file
-while IFS= read -r line; do
-    # Install the Flatpak app
-    echo "Installing $line..."
-    flatpak install -y flathub "$line"
-done < "$FILE"
-# chmod +x install_flatpaks.sh
-
-#FP WRAPPIN'
-# Define the actual username and home directory, even when running with sudo
-REAL_USER=$(logname)
-REAL_HOME=$(eval echo ~$REAL_USER)
-
-# Define directories
-bin_dir="$REAL_HOME/bin"
-
-# Create bin directory if it doesn't exist
-sudo -u $REAL_USER mkdir -p "$bin_dir"
+# Function to check if a Flatpak app is installed
+is_flatpak_installed() {
+    flatpak list | grep -q "$1"
+}
 
 # Function to create wrapper script for each Flatpak app
 create_wrapper_script() {
@@ -56,7 +40,21 @@ create_wrapper_script() {
     sudo -u $REAL_USER chmod +x "$script_path"
 }
 
+# Install or update Flatpak apps from the list and create wrappers
+while IFS= read -r line || [[ -n "$line" ]]; do
+    if ! is_flatpak_installed "$line"; then
+        echo "Installing Flatpak app: $line"
+        flatpak install -y flathub "$line"
+    fi
+    create_wrapper_script "$line"
+done < "$flatpak_list"
+
+# Update all installed Flatpaks
+echo "Updating all installed Flatpaks..."
+flatpak update -y
+
 # Create wrapper scripts for all installed Flatpak apps
+echo "Creating wrapper scripts for all installed Flatpak apps..."
 installed_apps=$(flatpak list --app --columns=application)
 for app_id in $installed_apps; do
     create_wrapper_script "$app_id"
@@ -64,46 +62,8 @@ done
 
 echo "Flatpak wrappers created for all installed apps. Please ensure $bin_dir is in your PATH."
 
-# Function to check if a Flatpak app is installed
-is_flatpak_installed() {
-    flatpak list | grep -q "$1"
-}
 
-# Function to delete unwrapped Flatpak apps
-delete_unwrapped_flatpak() {
-    local app_id="$1"
-    echo "Removing unwrapped Flatpak app: $app_id"
-    flatpak uninstall -y "$app_id"
-}
-
-# Update Flatpak apps and re-wrap
-update_and_rewrap_flatpaks() {
-    local app_id
-    local installed_apps
-    installed_apps=$(flatpak list --app --columns=application)
-
-    # Install or update Flatpak apps from the list
-    while IFS= read -r line || [[ -n "$line" ]]; do
-        if ! is_flatpak_installed "$line"; then
-            echo "Installing or updating Flatpak app: $line"
-            flatpak install -y flathub "$line"
-        fi
-        create_wrapper_script "$line"
-    done < "$flatpak_list"
-
-    # Remove Flatpaks not in the list
-    for app_id in $installed_apps; do
-        if ! grep -q "$app_id" "$flatpak_list"; then
-            delete_unwrapped_flatpak "$app_id"
-        fi
-    done
-
-    echo "Flatpak updates and re-wrappings complete."
-}
-
-update_and_rewrap_flatpaks
-
-# I3 CFG
+# I3 CFG 
 # Define the path to your current i3 config file
 I3_CONFIG="$HOME/.config/i3/config"
 
