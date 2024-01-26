@@ -13,6 +13,11 @@ sudo apt install -y git gdm3 i3 i3blocks i3lock lxappearance materia-gtk-theme f
 
 
 #FLATPAKS
+
+apt install gnome-software-plugin-flatpak
+flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+
+
 # File containing the list of Flatpak apps to install
 FILE="flatpaks.txt"
 
@@ -29,7 +34,6 @@ while IFS= read -r line; do
     flatpak install -y flathub "$line"
 done < "$FILE"
 # chmod +x install_flatpaks.sh
-#!/bin/bash
 
 # Define the actual username and home directory, even when running with sudo
 REAL_USER=$(logname)
