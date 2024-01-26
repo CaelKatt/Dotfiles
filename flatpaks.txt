@@ -8,3 +8,4 @@ com.spotify.Client
 com.github.tchx84.Flatseal
 net.mullvad.MullvadBrowser
 org.qbittorrent.qBittorrent
+com.brave.Browser
