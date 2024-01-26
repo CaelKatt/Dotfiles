@@ -192,7 +192,9 @@ exec --no-startup-id i3-msg 'workspace 4; exec brave'
 # Open Bitwarden, Spotify, and Mullvad VPN in workspace 5
 exec --no-startup-id i3-msg 'workspace 5; exec bitwarden'
 exec --no-startup-id i3-msg 'workspace 5; exec spotify'
-exec --no-startup-id i3-msg 'workspace 5; exec mullvad-vpn'
+exec --no-startup-id i3-msg 'workspace 6; exec mullvad-vpn'
+exec --no-startup-id i3-msg 'workspace 6; exec thunar'
+exec --no-startup-id i3-msg 'workspace 6; exec veracrypt'
 
 # Open Thunar and Alacritty in workspace 6
 exec --no-startup-id i3-msg 'workspace 6; exec thunar'
