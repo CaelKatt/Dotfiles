@@ -35,13 +35,13 @@ while IFS= read -r line; do
 done < "$FILE"
 # chmod +x install_flatpaks.sh
 
+#FP WRAPPIN'
 # Define the actual username and home directory, even when running with sudo
 REAL_USER=$(logname)
 REAL_HOME=$(eval echo ~$REAL_USER)
 
 # Define directories
 bin_dir="$REAL_HOME/bin"
-flatpak_list="flatpaks.txt"  # Ensure this path is correct or adjust accordingly
 
 # Create bin directory if it doesn't exist
 sudo -u $REAL_USER mkdir -p "$bin_dir"
@@ -56,12 +56,13 @@ create_wrapper_script() {
     sudo -u $REAL_USER chmod +x "$script_path"
 }
 
-# Read each Flatpak app ID and create a wrapper script
-while IFS= read -r line || [[ -n "$line" ]]; do
-    create_wrapper_script "$line"
-done < "$flatpak_list"
+# Create wrapper scripts for all installed Flatpak apps
+installed_apps=$(flatpak list --app --columns=application)
+for app_id in $installed_apps; do
+    create_wrapper_script "$app_id"
+done
 
-echo "Flatpak wrappers created. Please ensure $bin_dir is in your PATH."
+echo "Flatpak wrappers created for all installed apps. Please ensure $bin_dir is in your PATH."
 
 # Function to check if a Flatpak app is installed
 is_flatpak_installed() {
