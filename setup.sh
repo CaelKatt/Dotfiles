@@ -40,9 +40,10 @@ create_wrapper_script() {
     script_content="#!/bin/bash\nflatpak run $app_id"
 
     # Write the script content to the file, set execute permissions
-    echo -e "$script_content" | sudo -u $REAL_USER tee "$script_path" > /dev/null
-    sudo -u $REAL_USER chmod +x "$script_path"
+    echo -e "$script_content" > "$script_path"
+    chmod +x "$script_path"
 }
+
 
 
 # Install or update Flatpak apps from the list and create wrappers
