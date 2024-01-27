@@ -36,15 +36,19 @@ create_wrapper_script() {
     local app_name=$(echo "$app_id" | awk -F '.' '{print tolower($NF)}')
     local script_path="$bin_dir/$app_name"
 
+    # Check if bin_dir exists and is writable
+    if [ ! -d "$bin_dir" ] || [ ! -w "$bin_dir" ]; then
+        echo "Error: '$bin_dir' does not exist or is not writable"
+        exit 1
+    fi
+
     # Create the script content
     script_content="#!/bin/bash\nflatpak run $app_id"
 
     # Write the script content to the file, set execute permissions
     echo -e "$script_content" > "$script_path"
-    chmod +x "$script_path"
+    chmod +x "$script_path" || { echo "Error setting execute permission on $script_path"; exit 1; }
 }
-
-
 
 # Install or update Flatpak apps from the list and create wrappers
 while IFS= read -r line || [[ -n "$line" ]]; do
