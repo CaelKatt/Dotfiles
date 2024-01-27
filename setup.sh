@@ -180,8 +180,6 @@ echo "Setup complete!"
 
 #Nightshift
 
-#!/bin/bash
-
 # Check if cron is installed, if not, install it
 if ! command -v cron >/dev/null 2>&1; then
     echo "cron not found, installing..."
