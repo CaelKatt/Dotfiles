@@ -36,9 +36,14 @@ create_wrapper_script() {
     local app_name=$(echo "$app_id" | awk -F '.' '{print tolower($NF)}')
     local script_path="$bin_dir/$app_name"
 
-    sudo -u $REAL_USER bash -c "echo -e '#!/bin/bash\nflatpak run $app_id' > '$script_path'"
+    # Create the script content
+    script_content="#!/bin/bash\nflatpak run $app_id"
+
+    # Write the script content to the file, set execute permissions
+    echo -e "$script_content" | sudo -u $REAL_USER tee "$script_path" > /dev/null
     sudo -u $REAL_USER chmod +x "$script_path"
 }
+
 
 # Install or update Flatpak apps from the list and create wrappers
 while IFS= read -r line || [[ -n "$line" ]]; do
