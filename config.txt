@@ -202,7 +202,7 @@ exec --no-startup-id sleep 15; i3-msg 'workspace 5; exec flatpak run com.discord
 
 # Open Veracrypt, Bitwarden, Thunar, Mullvad-VPN in workspace 6 (FILES/SECURITY)
 exec --no-startup-id sleep 20; i3-msg 'workspace 6; exec thunar'
-exec --no-startup-id sleep 20; i3-msg 'workspace 6; exec flatpak run veracrypt'
+exec --no-startup-id sleep 20; i3-msg 'workspace 6; exec veracrypt'
 exec --no-startup-id sleep 20; i3-msg 'workspace 6; exec flatpak run mullvad-vpn'
 exec --no-startup-id sleep 20; i3-msg 'workspace 6; exec flatpak run com.bitwarden.desktop'
 
