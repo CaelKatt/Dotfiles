@@ -11,6 +11,16 @@ echo "Updating and upgrading the system..."
 sudo apt update && sudo apt upgrade -y
 sudo apt install -y git gdm3 i3 i3blocks i3lock lxappearance materia-gtk-theme feh mc alacritty neovim xz-utils thunar neofetch gedit pulseaudio flatpak
 
+#VERACRYPT SPECIFICALLY
+sudo apt install dirmngr ca-certificates software-properties-common gnupg gnupg2 apt-transport-https curl -y
+
+curl -fsSL https://notesalexp.org/debian/alexp_key.asc | gpg --dearmor | sudo tee /usr/share/keyrings/alexp_key.gpg > /dev/null
+
+echo 'deb [signed-by=/usr/share/keyrings/alexp_key.gpg] https://notesalexp.org/debian/bullseye/ bullseye main' | sudo tee -a /etc/apt/sources.list.d/alexp.list
+
+
+
+
 #FLATPAKZ
 # Install GNOME Software plugin for Flatpak
 sudo apt install -y gnome-software-plugin-flatpak
@@ -192,5 +202,8 @@ update-desktop-database "$LOCAL_DESKTOP_DIR"
 echo "Reloading i3..."
 i3-msg reload
 i3-msg restart
+
+chmod +x install_veracrypt.sh
+sudo ./install_veracrypt.sh\
 
 echo "Setup complete!"
