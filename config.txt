@@ -181,26 +181,30 @@ exec --no-startup-id gsettings set org.gnome.desktop.interface color-scheme pref
 exec --no-startup-id nm-applet
 exec i3-config-wizard
 
-# Open Alacritty in workspace 1
-exec --no-startup-id i3-msg 'workspace 1; exec alacritty'
 
-# Open Brave browser in workspace 2
-exec --no-startup-id i3-msg 'workspace 2; exec brave'
+# Open Alacritty in workspace 1 (IDE)
+exec --no-startup-id sleep 3; i3-msg 'workspace 1; exec alacritty'
 
-# Open Brave browser in workspace 4
-exec --no-startup-id i3-msg 'workspace 4; exec brave'
+# Open Brave and Spotify in workspace 2 (MEDIA BROWSER/MEDIA)
+exec --no-startup-id sleep 3; i3-msg 'workspace 2; exec flatpak run com.brave.Browser'
+exec --no-startup-id sleep 3; i3-msg 'workspace 2; exec flatpak run com.spotify.Client'
 
-# Open Bitwarden, Spotify, and Mullvad VPN in workspace 5
-exec --no-startup-id i3-msg 'workspace 5; exec bitwarden'
-exec --no-startup-id i3-msg 'workspace 5; exec spotify'
-exec --no-startup-id i3-msg 'workspace 6; exec mullvad-vpn'
-exec --no-startup-id i3-msg 'workspace 6; exec thunar'
-exec --no-startup-id i3-msg 'workspace 6; exec veracrypt'
+# Free worksace on 3
 
-# Open Thunar and Alacritty in workspace 6
-exec --no-startup-id i3-msg 'workspace 6; exec thunar'
-exec --no-startup-id i3-msg 'workspace 6; exec alacritty'
 
+# Open Firefox and Obsidian in workspace 4 (WORK BROWSER)
+exec --no-startup-id sleep 3; i3-msg 'workspace 4; exec flatpak run md.obsidian.Obsidian'
+exec --no-startup-id sleep 3; i3-msg 'workspace 4; exec flatpak run org.mozilla.firefox'
+
+# Open Signal, Discord in workspace 5 (ALWAYS OPEN COMMS)
+exec --no-startup-id sleep 3; i3-msg 'workspace 5; exec flatpak run org.signal.Signal'
+exec --no-startup-id sleep 3; i3-msg 'workspace 5; exec flatpak run com.discordapp.Discord'
+
+# Open Veracrypt, Bitwarden, Thunar, Mullvad-VPN in workspace 6 (FILES/SECURITY)
+exec --no-startup-id sleep 3; i3-msg 'workspace 6; exec thunar'
+exec --no-startup-id sleep 3; i3-msg 'workspace 6; exec flatpak run veracrypt'
+exec --no-startup-id sleep 3; i3-msg 'workspace 6; exec flatpak run mullvad-vpn'
+exec --no-startup-id sleep 3; i3-msg 'workspace 6; exec flatpak run com.bitwarden.desktop'
 
 # ---------------------------------------
 # BAR CONFIG
