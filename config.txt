@@ -193,18 +193,18 @@ exec --no-startup-id sleep 3; i3-msg 'workspace 2; exec flatpak run com.spotify.
 
 
 # Open Firefox and Obsidian in workspace 4 (WORK BROWSER)
-exec --no-startup-id sleep 3; i3-msg 'workspace 4; exec flatpak run md.obsidian.Obsidian'
-exec --no-startup-id sleep 3; i3-msg 'workspace 4; exec flatpak run org.mozilla.firefox'
+exec --no-startup-id sleep 1; i3-msg 'workspace 4; exec flatpak run md.obsidian.Obsidian'
+exec --no-startup-id sleep 1; i3-msg 'workspace 4; exec flatpak run org.mozilla.firefox'
 
 # Open Signal, Discord in workspace 5 (ALWAYS OPEN COMMS)
 exec --no-startup-id sleep 3; i3-msg 'workspace 5; exec flatpak run org.signal.Signal'
 exec --no-startup-id sleep 3; i3-msg 'workspace 5; exec flatpak run com.discordapp.Discord'
 
 # Open Veracrypt, Bitwarden, Thunar, Mullvad-VPN in workspace 6 (FILES/SECURITY)
-exec --no-startup-id sleep 3; i3-msg 'workspace 6; exec thunar'
-exec --no-startup-id sleep 3; i3-msg 'workspace 6; exec flatpak run veracrypt'
-exec --no-startup-id sleep 3; i3-msg 'workspace 6; exec flatpak run mullvad-vpn'
-exec --no-startup-id sleep 3; i3-msg 'workspace 6; exec flatpak run com.bitwarden.desktop'
+exec --no-startup-id sleep 5; i3-msg 'workspace 6; exec thunar'
+exec --no-startup-id sleep 5; i3-msg 'workspace 6; exec flatpak run veracrypt'
+exec --no-startup-id sleep 5; i3-msg 'workspace 6; exec flatpak run mullvad-vpn'
+exec --no-startup-id sleep 5; i3-msg 'workspace 6; exec flatpak run com.bitwarden.desktop'
 
 # ---------------------------------------
 # BAR CONFIG
