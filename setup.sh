@@ -16,62 +16,81 @@ sudo apt install -y git gdm3 i3 i3blocks i3lock lxappearance materia-gtk-theme f
 sudo apt install -y gnome-software-plugin-flatpak
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
-# Define the path to the list of Flatpak apps to install
-flatpak_list="flatpaks.txt"
+# Function to install Flatpak apps from a .txt file
+install_flatpaks_from_file() {
+    local flatpak_list="$1"
 
-# Check if the file exists
-if [ ! -f "$flatpak_list" ]; then
-    echo "File not found: $flatpak_list"
-    exit 1
-fi
+    # Check if the file exists
+    if [ ! -f "$flatpak_list" ]; then
+        echo "File not found: $flatpak_list"
+        return 1
+    fi
 
-# Function to check if a Flatpak app is installed
-is_flatpak_installed() {
-    flatpak list | grep -q "$1"
+    # Function to check if a Flatpak app is installed
+    is_flatpak_installed() {
+        flatpak list --app --columns=application | grep -q "^$1\$"
+    }
+
+    # Install or update Flatpak apps from the list
+    while IFS= read -r line || [[ -n "$line" ]]; do
+        if ! is_flatpak_installed "$line"; then
+            echo "Installing Flatpak app: $line"
+            flatpak install -y --noninteractive flathub "$line"
+        else
+            echo "Flatpak app already installed: $line"
+        fi
+    done < "$flatpak_list"
 }
 
-# Function to create wrapper script for each Flatpak app
+# Path to the .txt file with Flatpak app IDs
+flatpak_list="flatpaks.txt"
+
+# Install Flatpak apps from the file
+install_flatpaks_from_file "$flatpak_list"
+
+#WRAPPIN PAX
+# Directory for wrapper scripts
+bin_dir="$HOME/bin"
+
+# Ensure the bin directory exists
+mkdir -p "$bin_dir"
+
+# Function to add bin_dir to PATH in .bashrc if it's not already there
+add_to_path() {
+    if ! grep -q "$bin_dir" "$HOME/.bashrc"; then
+        echo "export PATH=\"\$PATH:$bin_dir\"" >> "$HOME/.bashrc"
+        echo "Added $bin_dir to PATH in .bashrc. Please restart your shell or source .bashrc."
+    else
+        echo "$bin_dir is already in PATH."
+    fi
+}
+
+# Function to create a wrapper script for a Flatpak app
 create_wrapper_script() {
     local app_id="$1"
     local app_name=$(echo "$app_id" | awk -F '.' '{print tolower($NF)}')
     local script_path="$bin_dir/$app_name"
 
-    # Check if bin_dir exists and is writable
-    if [ ! -d "$bin_dir" ] || [ ! -w "$bin_dir" ]; then
-        echo "Error: '$bin_dir' does not exist or is not writable"
-        exit 1
-    fi
-
     # Create the script content
-    script_content="#!/bin/bash\nflatpak run $app_id"
+    echo -e "#!/bin/bash\nflatpak run $app_id" > "$script_path"
 
-    # Write the script content to the file, set execute permissions
-    echo -e "$script_content" > "$script_path"
-    chmod +x "$script_path" || { echo "Error setting execute permission on $script_path"; exit 1; }
+    # Set execute permissions
+    chmod +x "$script_path"
 }
 
-# Install or update Flatpak apps from the list and create wrappers
-while IFS= read -r line || [[ -n "$line" ]]; do
-    if ! is_flatpak_installed "$line"; then
-        echo "Installing Flatpak app: $line"
-        flatpak install -y flathub "$line"
-    fi
-    create_wrapper_script "$line"
-done < "$flatpak_list"
+# Add bin_dir to PATH
+add_to_path
+
+# Fetch list of installed Flatpak apps and create wrapper scripts
+flatpak list --app --columns=application | while read -r app_id; do
+    create_wrapper_script "$app_id"
+done
+
+echo "Wrapper scripts created for all installed Flatpak apps. Please ensure $bin_dir is in your PATH."
 
 # Update all installed Flatpaks
 echo "Updating all installed Flatpaks..."
 flatpak update -y
-
-# Create wrapper scripts for all installed Flatpak apps
-echo "Creating wrapper scripts for all installed Flatpak apps..."
-installed_apps=$(flatpak list --app --columns=application)
-for app_id in $installed_apps; do
-    create_wrapper_script "$app_id"
-done
-
-echo "Flatpak wrappers created for all installed apps. Please ensure $bin_dir is in your PATH."
-
 
 # I3 CFG 
 # Define the path to your current i3 config file
