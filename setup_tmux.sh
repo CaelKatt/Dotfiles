@@ -15,43 +15,99 @@ set-option -g prefix C-b
 unbind C-b
 bind C-b send-prefix
 
-# Pane splitting with numpad
-bind -n KP_Multiply split-window -h # Numpad *
-bind -n KP_Divide split-window -v # Numpad /
+# Custom keybindings for tmux commands
+# Rename session
+bind R command-prompt "rename-session '%%'"
 
-# Navigate panes with F keys
-bind -n F1 select-pane -L
-bind -n F2 select-pane -D
-bind -n F3 select-pane -U
-bind -n F4 select-pane -R
+# Detach from session
+bind D detach-client
 
-# Resize panes with shifted F keys (F5-F8)
-bind -n F5 resize-pane -L 2
-bind -n F6 resize-pane -D 2
-bind -n F7 resize-pane -U 2
-bind -n F8 resize-pane -R 2
+# Show all sessions
+bind S list-sessions
 
-# Create new window with F9
-bind -n F9 new-window
+# Session and Window Preview
+bind W choose-tree
 
-# Navigate windows with F10 and F11
-bind -n F10 next-window
-bind -n F11 previous-window
+# Move to previous session
+bind F1 switch-client -p
 
-# Detach session with F12
-bind -n F12 detach-client
+# Move to next session
+bind F2 switch-client -n
 
-# Reload tmux config with Ctrl+F12 (assuming your terminal and OS can handle this combo)
-bind -n C-F12 source-file ~/.tmux.conf \; display-message "Config reloaded!"
+# Create window
+bind F3 new-window
 
-# List sessions with numpad +
-bind -n KP_Add list-sessions
+# Rename current window
+bind F4 command-prompt "rename-window '%%'"
 
-# Find window with numpad -
-bind -n KP_Subtract command-prompt "find-window '%%'"
+# Close current window
+bind F5 kill-window
 
-# Synchronize panes with numpad 0
-bind -n KP_0 setw synchronize-panes
+# List windows
+bind w list-windows
+
+# Previous window
+bind p previous-window
+
+# Next window
+bind n next-window
+
+# Switch/select window by number
+bind-key -T prefix 0 select-window -t :=0
+bind-key -T prefix 1 select-window -t :=1
+# Add bindings for 2-9 as needed
+
+# Toggle last active window
+bind l last-window
+
+# Toggle last active pane
+bind F6 select-pane -l
+
+# Split the current pane horizontally
+bind F7 split-window -h
+
+# Split the current pane vertically
+bind F8 split-window -v
+
+# Move the current pane left
+bind F9 swap-pane -U
+
+# Move the current pane right
+bind F10 swap-pane -D
+
+# Toggle synchronize-panes
+bind 0 setw synchronize-panes
+
+# Toggle between pane layouts
+bind Space next-layout
+
+# Switch to next pane
+bind o select-pane -t :.+
+
+# Show pane numbers
+bind q display-panes
+
+# Toggle pane zoom
+bind z resize-pane -Z
+
+# Convert pane into a window
+bind F11 break-pane -d
+
+# Close current pane
+bind x kill-pane
+
+# Enter copy mode
+bind F12 copy-mode
+
+# Enter copy mode and scroll one page up
+bind PageUp copy-mode -u
+
+# Navigate panes with arrow keys
+unbind o
+bind -n Up select-pane -U
+bind -n Down select-pane -D
+bind -n Left select-pane -L
+bind -n Right select-pane -R
 
 EOF
 
