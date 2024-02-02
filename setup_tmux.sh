@@ -109,6 +109,16 @@ bind -n Down select-pane -D
 bind -n Left select-pane -L
 bind -n Right select-pane -R
 
+# Resize pane up
+bind F13 resize-pane -U 5
+# Resize pane down
+bind F14 resize-pane -D 5
+# Resize pane left
+bind F15 resize-pane -L 5
+# Resize pane right
+bind F16 resize-pane -R 5
+
+
 EOF
 
 echo "Custom tmux configuration applied. Please reload your tmux configuration."
