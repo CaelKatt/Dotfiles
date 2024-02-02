@@ -1,56 +1,58 @@
 #!/bin/bash
 
-# Define the path to the tmux configuration file
 TMUX_CONFIG="$HOME/.tmux.conf"
 
-# Backup the current tmux configuration, if it exists
+# Backup existing tmux configuration
 if [ -f "$TMUX_CONFIG" ]; then
     cp "$TMUX_CONFIG" "${TMUX_CONFIG}.backup"
-    echo "Existing tmux.conf backed up to tmux.conf.backup"
+    echo "Existing tmux.conf backed up."
 fi
 
-# Write the custom tmux configuration to the tmux.conf file
+# Start writing the tmux configuration
 cat > "$TMUX_CONFIG" <<'EOF'
-# Set the prefix, assuming the default Ctrl+B
-# If you've changed this, adjust the prefix key accordingly
-set -g prefix C-b
+# Set prefix to Ctrl+B (default)
+set-option -g prefix C-b
 unbind C-b
 bind C-b send-prefix
 
-# Function keys for common actions
-bind -n F1 new-window # Create a new window
-bind -n F2 split-window -h # Split the current pane horizontally
-bind -n F3 split-window -v # Split the current pane vertically
-bind -n F4 select-pane -t :.+ # Move to the next pane
-bind -n F5 select-pane -t :.- # Move to the previous pane
-bind -n F6 detach-client # Detach the current client
-bind -n F7 previous-window # Move to the previous window
-bind -n F8 next-window # Move to the next window
-bind -n F9 list-sessions # List all sessions
-bind -n F10 last-window # Toggle between the last active windows
-bind -n F11 kill-window # Close the current window
-bind -n F12 kill-pane # Close the current pane
+# Pane splitting with numpad
+bind -n KP_Multiply split-window -h # Numpad *
+bind -n KP_Divide split-window -v # Numpad /
 
-# Numpad keys for pane navigation and resizing
-bind -n KP0 select-layout even-horizontal
-bind -n KP1 select-pane -L
-bind -n KP2 select-pane -D
-bind -n KP3 select-pane -U
-bind -n KP4 select-pane -R
-bind -n KP5 resize-pane -D 5
-bind -n KP6 resize-pane -U 5
-bind -n KP7 resize-pane -L 5
-bind -n KP8 resize-pane -R 5
-bind -n KP9 swap-pane -s 1 -t 2
+# Navigate panes with F keys
+bind -n F1 select-pane -L
+bind -n F2 select-pane -D
+bind -n F3 select-pane -U
+bind -n F4 select-pane -R
 
-# Ensure tmux recognizes numpad keys (may depend on terminal emulator)
-set -g terminal-overrides 'xterm*:smkx@:rmkx@'
+# Resize panes with shifted F keys (F5-F8)
+bind -n F5 resize-pane -L 2
+bind -n F6 resize-pane -D 2
+bind -n F7 resize-pane -U 2
+bind -n F8 resize-pane -R 2
 
-# Reload tmux config with a simple key binding
-bind -n F24 source-file ~/.tmux.conf \; display-message "Config reloaded!"
+# Create new window with F9
+bind -n F9 new-window
+
+# Navigate windows with F10 and F11
+bind -n F10 next-window
+bind -n F11 previous-window
+
+# Detach session with F12
+bind -n F12 detach-client
+
+# Reload tmux config with Ctrl+F12 (assuming your terminal and OS can handle this combo)
+bind -n C-F12 source-file ~/.tmux.conf \; display-message "Config reloaded!"
+
+# List sessions with numpad +
+bind -n KP_Add list-sessions
+
+# Find window with numpad -
+bind -n KP_Subtract command-prompt "find-window '%%'"
+
+# Synchronize panes with numpad 0
+bind -n KP_0 setw synchronize-panes
+
 EOF
 
-echo "Custom tmux configuration for macro-friendly keybindings has been applied."
-echo "Please reload your tmux configuration by running:"
-echo "tmux source-file ~/.tmux.conf"
-echo "Or, restart your tmux session."
+echo "Custom tmux configuration applied. Please reload your tmux configuration."
