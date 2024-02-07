@@ -110,13 +110,13 @@ bind -n Left select-pane -L
 bind -n Right select-pane -R
 
 # Resize pane up
-bind F13 resize-pane -U 5
+bind c resize-pane -U 5
 # Resize pane down
-bind F14 resize-pane -D 5
+bind j resize-pane -D 5
 # Resize pane left
-bind F15 resize-pane -L 5
+bind k resize-pane -L 5
 # Resize pane right
-bind F16 resize-pane -R 5
+bind m resize-pane -R 5
 
 
 EOF
