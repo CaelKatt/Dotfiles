@@ -206,4 +206,7 @@ i3-msg restart
 chmod +x install_veracrypt.sh
 sudo ./install_veracrypt.sh\
 
+chmod +x install_neovim.sh
+./install_neovim.sh
+
 echo "Setup complete!"
