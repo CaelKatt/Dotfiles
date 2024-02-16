@@ -200,11 +200,11 @@ exec --no-startup-id sleep 10; i3-msg 'workspace 4; exec flatpak run org.mozilla
 exec --no-startup-id sleep 15; i3-msg 'workspace 5; exec flatpak run org.signal.Signal'
 exec --no-startup-id sleep 15; i3-msg 'workspace 5; exec flatpak run com.discordapp.Discord'
 
-# Open Veracrypt, Bitwarden, Thunar, Mullvad-VPN in workspace 6 (FILES/SECURITY)
+# Open Veracrypt, Bitwarden, Thunar, Settings in workspace 6 (FILES/SECURITY)
 exec --no-startup-id sleep 20; i3-msg 'workspace 6; exec thunar'
 exec --no-startup-id sleep 20; i3-msg 'workspace 6; exec veracrypt'
-exec --no-startup-id sleep 20; i3-msg 'workspace 6; exec flatpak run mullvad-vpn'
 exec --no-startup-id sleep 20; i3-msg 'workspace 6; exec flatpak run com.bitwarden.desktop'
+exec --no-startup-id sleep 20; i3-msg 'workspace 6; exec gnome-control-center'
 
 # ---------------------------------------
 # BAR CONFIG
