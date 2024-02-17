@@ -206,7 +206,10 @@ i3-msg restart
 chmod +x install_veracrypt.sh
 sudo ./install_veracrypt.sh\
 
-chmod +x install_neovim.sh
-./install_neovim.sh
+chmod +x nviminst.sh
+./nviminst.sh
+
+chmod +x setup_tmux.sh
+./setup_tmux.sh
 
 echo "Setup complete!"
