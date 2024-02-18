@@ -10,3 +10,4 @@ org.qbittorrent.qBittorrent
 com.brave.Browser
 com.librumreader.librum
 io.gitlab.adhami3310.Impression
+io.mrarm.mcpelauncher
