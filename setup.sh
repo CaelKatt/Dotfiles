@@ -212,7 +212,4 @@ chmod +x nviminst.sh
 chmod +x tmux_setup.sh
 ./tmux_setup.sh
 
-chmod +x mvpn.sh
-./mvpn.sh
-
 echo "Setup complete!"
