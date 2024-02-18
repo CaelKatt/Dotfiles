@@ -9,7 +9,7 @@ fi
 # Install necessary packages (some commands need sudo)
 echo "Updating and upgrading the system..."
 sudo apt update && sudo apt upgrade -y
-sudo apt install -y git gdm3 i3 i3blocks i3lock lxappearance materia-gtk-theme feh mc alacritty neovim xz-utils shutter thunar deluge neofetch gedit pulseaudio flatpak cmatrix
+sudo apt install -y git gdm3 i3 i3blocks i3lock lxappearance materia-gtk-theme feh mc alacritty neovim xz-utils network-manager-openvpn-gnome shutter thunar deluge neofetch gedit pulseaudio flatpak cmatrix
 
 #VERACRYPT SPECIFICALLY
 sudo apt install dirmngr ca-certificates software-properties-common gnupg gnupg2 apt-transport-https curl -y
