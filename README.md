@@ -51,7 +51,7 @@ Should one find oneself not with my specific specifications as I currently have,
    - keybindings (once again inside the i3 config)
    - etc.
    - Be sure to apply settings in lxappearance.
-   - Mullvad Inst Guide `https://mullvad.net/en/help/install-mullvad-app-linux`
+   - Mullvad Inst Guide `https://mullvad.net/en/help/install-mullvad-app-linux` > Usually if in restrictive network, connect to hotspot > Install latest .deb > dpkg -i [].deb > Fin.
 
 ### Overview
 
