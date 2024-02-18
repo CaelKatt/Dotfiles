@@ -212,7 +212,4 @@ chmod +x nviminst.sh
 chmod +x setup_tmux.sh
 ./setup_tmux.sh
 
-chmod +x nvidia.sh
-./nvidia.sh
-
 echo "Setup complete!"
