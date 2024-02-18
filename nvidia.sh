@@ -1,49 +1,58 @@
 #!/bin/bash
 
-# Update and Upgrade the system
-echo "Updating system package database..."
-sudo apt update && sudo apt upgrade -y
+# Define a function to add non-free repositories for Debian
+add_debian_non_free_repo() {
+    echo "Adding non-free repository to sources.list for Debian..."
+    sudo sed -i '/^deb/s/$/ contrib non-free/' /etc/apt/sources.list
+    sudo apt update
+}
 
-# Install software-properties-common if not already installed (for add-apt-repository)
+# Define a function for Ubuntu to add the graphics drivers PPA
+add_ubuntu_graphics_ppa() {
+    echo "Adding the graphics-drivers PPA for Ubuntu..."
+    sudo add-apt-repository ppa:graphics-drivers/ppa -y
+    sudo apt update
+}
+
+# Install software-properties-common to enable add-apt-repository
+echo "Ensuring software-properties-common is installed..."
 sudo apt install software-properties-common -y
 
-# Add the graphics drivers PPA (Ubuntu and derivatives)
-echo "Adding the graphics-drivers PPA..."
-sudo add-apt-repository ppa:graphics-drivers/ppa -y
-sudo apt update
+# Check if we are on Debian or Ubuntu and add repositories accordingly
+. /etc/os-release
+case "$ID" in
+    debian)
+        add_debian_non_free_repo
+        ;;
+    ubuntu)
+        add_ubuntu_graphics_ppa
+        ;;
+    *)
+        echo "This script is intended for Debian and Ubuntu systems."
+        exit 1
+        ;;
+esac
 
-# Install nvidia-detect (Debian and derivatives)
-echo "Installing nvidia-detect..."
-sudo apt install nvidia-detect -y
+# Prompt for manual driver selection
+echo "Please visit https://www.nvidia.com/Download/index.aspx to find the recommended driver version for your GPU."
+read -p "Enter the driver version you wish to install (e.g., nvidia-driver-460): " driver_version
 
-# Detect and recommend a driver
-echo "Detecting recommended driver..."
-recommended_driver=$(nvidia-detect | grep -oP 'nvidia-driver-\K\d+')
-if [ -z "$recommended_driver" ]; then
-    echo "No proprietary NVIDIA driver recommendation found. Exiting..."
+# Validate input
+if [[ -z "$driver_version" ]]; then
+    echo "No driver version entered. Exiting..."
     exit 1
-else
-    echo "Recommended driver: nvidia-driver-$recommended_driver"
 fi
 
-# Confirm with the user
-read -p "Proceed with installing nvidia-driver-$recommended_driver? (y/n) " -n 1 -r
-echo    # move to a new line
-if [[ $REPLY =~ ^[Yy]$ ]]; then
-    # Remove any existing NVIDIA drivers first
-    echo "Removing any existing NVIDIA drivers..."
-    sudo apt purge '^nvidia-.*' -y
+# Remove any existing NVIDIA drivers
+echo "Removing existing NVIDIA drivers..."
+sudo apt purge '^nvidia-.*' -y
 
-    # Install the recommended NVIDIA driver
-    echo "Installing nvidia-driver-$recommended_driver..."
-    sudo apt install "nvidia-driver-$recommended_driver" -y
+# Install the selected NVIDIA driver
+echo "Installing $driver_version..."
+sudo apt install "$driver_version" -y
 
-    # Update the initramfs
-    echo "Updating initramfs..."
-    sudo update-initramfs -u
+# Update the initramfs
+echo "Updating initramfs..."
+sudo update-initramfs -u
 
-    echo "Installation complete. Please reboot your system."
-else
-    echo "Installation cancelled."
-    exit 0
-fi
+echo "Driver installation complete. Please reboot your system."
