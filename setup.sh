@@ -212,12 +212,10 @@ chmod +x nviminst.sh
 chmod +x tmux_setup.sh
 ./tmux_setup.sh
 
-#!/bin/bash
-
+# MULLVAD ---------------------------------
 # Exit immediately if a command exits with a non-zero status.
 set -e
 
-# MULLVAD
 # Download the Mullvad signing key
 echo "Downloading Mullvad VPN signing key..."
 sudo curl -fsSLo /usr/share/keyrings/mullvad-keyring.asc https://repository.mullvad.net/deb/mullvad-keyring.asc
