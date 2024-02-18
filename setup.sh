@@ -209,8 +209,8 @@ sudo ./install_veracrypt.sh\
 chmod +x nviminst.sh
 ./nviminst.sh
 
-chmod +x setup_tmux.sh
-./setup_tmux.sh
+chmod +x tmux_setup.sh
+./tmux_setup.sh
 
 chmod +x mvpn.sh
 ./mvpn.sh
