@@ -212,4 +212,29 @@ chmod +x nviminst.sh
 chmod +x tmux_setup.sh
 ./tmux_setup.sh
 
+#!/bin/bash
+
+# Exit immediately if a command exits with a non-zero status.
+set -e
+
+# MULLVAD
+# Download the Mullvad signing key
+echo "Downloading Mullvad VPN signing key..."
+sudo curl -fsSLo /usr/share/keyrings/mullvad-keyring.asc https://repository.mullvad.net/deb/mullvad-keyring.asc
+
+# Add the Mullvad repository to the APT sources
+echo "Adding the Mullvad VPN repository..."
+echo "deb [signed-by=/usr/share/keyrings/mullvad-keyring.asc arch=$(dpkg --print-architecture)] https://repository.mullvad.net/deb/stable $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/mullvad.list
+
+# Update the package list
+echo "Updating package list..."
+sudo apt update
+
+# Install the Mullvad VPN package
+echo "Installing Mullvad VPN..."
+sudo apt install mullvad-vpn
+
+echo "Mullvad VPN installation completed successfully."
+
+
 echo "Setup complete!"
