@@ -1,3 +1,4 @@
+#!/bin/bash
 sudo curl -fsSLo /usr/share/keyrings/mullvad-keyring.asc https://repository.mullvad.net/deb/mullvad-keyring.asc
 
 # Add the Mullvad repository server to apt
