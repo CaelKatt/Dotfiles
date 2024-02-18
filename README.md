@@ -52,5 +52,9 @@ Should one find oneself not with my specific specifications as I currently have,
    - etc.
    - Be sure to apply settings in lxappearance.
    - Mullvad Inst Guide `https://mullvad.net/en/help/install-mullvad-app-linux`
+
+### Overview
+
+- Install System > Run Script > Reboot & Login > Re-run Script > Reboot & Login > Fin. 
 ---
 Feel free to fork this repository and adapt the configurations to your liking. If you have improvements or suggestions, pull requests are welcome.
