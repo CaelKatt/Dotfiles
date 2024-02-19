@@ -38,5 +38,6 @@ add_to_path
 
 # Example: Create a wrapper script for Obsidian with a custom data folder
 create_wrapper_script "md.obsidian.Obsidian"
+create_wrapper_script "com.brave.Browser"
 
 echo "Wrapper script created for Obsidian with '-II' suffix. Please ensure $bin_dir is in your PATH."
