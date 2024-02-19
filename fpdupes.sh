@@ -1,18 +1,5 @@
 #!/bin/bash
 
-# INSTALLS MY DUPLICATE FLATPAKS
-
-# Step 1: Define a new Flatpak installation named "flatpak-II"
-flatpak_installation_name="flatpak-II"
-
-# Step 2: Add Flathub to the new installation (if not already added)
-flatpak --user remote-add --if-not-exists --installation=$flatpak_installation_name flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-
-# Step 3: Install the Flatpak application to the new installation
-flatpak install --user --installation=$flatpak_installation_name flathub md.obsidian.Obsidian -y
-
-# WRAPPIN' + II ID
-
 # Directory for wrapper scripts
 bin_dir="$HOME/bin"
 
@@ -39,8 +26,8 @@ create_wrapper_script() {
     # Ensure the custom data folder exists
     mkdir -p "$custom_data_folder"
 
-    # Create the script content with custom HOME directory and specify the custom installation
-    echo -e "#!/bin/bash\nenv HOME=\"$custom_data_folder\" flatpak run --user --installation=$flatpak_installation_name $app_id" > "$script_path"
+    # Create the script content with custom HOME directory
+    echo -e "#!/bin/bash\nenv HOME=\"$custom_data_folder\" flatpak run $app_id" > "$script_path"
 
     # Set execute permissions
     chmod +x "$script_path"
@@ -49,7 +36,7 @@ create_wrapper_script() {
 # Add bin_dir to PATH
 add_to_path
 
-# Create a wrapper script for the installed app with a custom data folder
+# Example: Create a wrapper script for Obsidian with a custom data folder
 create_wrapper_script "md.obsidian.Obsidian"
 
 echo "Wrapper script created for Obsidian with '-II' suffix. Please ensure $bin_dir is in your PATH."
