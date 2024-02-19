@@ -190,15 +190,15 @@ exec --no-startup-id sleep 2; i3-msg 'workspace 2; exec flatpak run com.brave.Br
 exec --no-startup-id sleep 2; i3-msg 'workspace 2; exec flatpak run com.spotify.Client'
 
 # Free worksace on 3
-
+exec --no-startup-id sleep 4; i3-msg 'workspace 4; exec --no-startup-id $HOME/bin/browser-II'
 
 # Open Firefox and Obsidian in workspace 4 (WORK BROWSER)
 exec --no-startup-id sleep 7; i3-msg 'workspace 4; exec flatpak run md.obsidian.Obsidian'
 exec --no-startup-id sleep 7; i3-msg 'workspace 4; exec --no-startup-id $HOME/bin/obsidian-II'
 
 # Open Signal, Discord in workspace 5 (ALWAYS OPEN COMMS)
-exec --no-startup-id sleep 11; i3-msg 'workspace 5; exec flatpak run org.signal.Signal'
-exec --no-startup-id sleep 11; i3-msg 'workspace 5; exec flatpak run com.discordapp.Discord'
+exec --no-startup-id sleep 12; i3-msg 'workspace 5; exec flatpak run org.signal.Signal'
+exec --no-startup-id sleep 12; i3-msg 'workspace 5; exec flatpak run com.discordapp.Discord'
 
 # Open Veracrypt, Bitwarden, Thunar, Settings in workspace 6 (FILES/SECURITY)
 exec --no-startup-id sleep 20; i3-msg 'workspace 6; exec thunar'
