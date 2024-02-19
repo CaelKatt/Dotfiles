@@ -204,6 +204,7 @@ exec --no-startup-id sleep 20; i3-msg 'workspace 6; exec thunar'
 exec --no-startup-id sleep 20; i3-msg 'workspace 6; exec veracrypt'
 exec --no-startup-id sleep 20; i3-msg 'workspace 6; exec flatpak run com.bitwarden.desktop'
 exec --no-startup-id sleep 20; i3-msg 'workspace 6; exec gnome-control-center'
+exec --no-startup-id sleep 1; i3-msg 'workspace 1; exec alacritty -e mullvad'
 
 # ---------------------------------------
 # BAR CONFIG
