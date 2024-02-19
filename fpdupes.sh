@@ -1,23 +1,18 @@
 #!/bin/bash
+
 # INSTALLS MY DUPLICATE FLATPAKS
-# Define the custom data folder path
-CUSTOM_DATA_FOLDER="$(pwd)/custom-flatpak-home"
 
-# Check if the custom data folder exists, if not, create it
-if [ ! -d "$CUSTOM_DATA_FOLDER" ]; then
-    mkdir -p "$CUSTOM_DATA_FOLDER"
-    echo "Created custom data folder at $CUSTOM_DATA_FOLDER"
-fi
+# Step 1: Define a new Flatpak installation named "flatpak-II"
+flatpak_installation_name="flatpak-II"
 
-# Install the Flatpak application (replace your-app-id with the actual app ID)
-flatpak install flathub md.obsidian.Obsidian -y
+# Step 2: Add Flathub to the new installation (if not already added)
+flatpak --user remote-add --if-not-exists --installation=$flatpak_installation_name flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
-# Run the Flatpak application with the custom data folder
-env HOME="$CUSTOM_DATA_FOLDER" flatpak run md.obsidian.Obsidian
-
-
+# Step 3: Install the Flatpak application to the new installation
+flatpak install --user --installation=$flatpak_installation_name flathub md.obsidian.Obsidian -y
 
 # WRAPPIN' + II ID
+
 # Directory for wrapper scripts
 bin_dir="$HOME/bin"
 
@@ -44,8 +39,8 @@ create_wrapper_script() {
     # Ensure the custom data folder exists
     mkdir -p "$custom_data_folder"
 
-    # Create the script content with custom HOME directory
-    echo -e "#!/bin/bash\nenv HOME=\"$custom_data_folder\" flatpak run $app_id" > "$script_path"
+    # Create the script content with custom HOME directory and specify the custom installation
+    echo -e "#!/bin/bash\nenv HOME=\"$custom_data_folder\" flatpak run --user --installation=$flatpak_installation_name $app_id" > "$script_path"
 
     # Set execute permissions
     chmod +x "$script_path"
@@ -54,9 +49,7 @@ create_wrapper_script() {
 # Add bin_dir to PATH
 add_to_path
 
-# Fetch list of installed Flatpak apps and create wrapper scripts
-flatpak list --app --columns=application | while read -r app_id; do
-    create_wrapper_script "$app_id"
-done
+# Create a wrapper script for the installed app with a custom data folder
+create_wrapper_script "md.obsidian.Obsidian"
 
-echo "Wrapper scripts created for all installed Flatpak apps with '-II' suffix. Please ensure $bin_dir is in your PATH."
+echo "Wrapper script created for Obsidian with '-II' suffix. Please ensure $bin_dir is in your PATH."
