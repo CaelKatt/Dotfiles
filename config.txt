@@ -194,7 +194,7 @@ exec --no-startup-id sleep 2; i3-msg 'workspace 2; exec flatpak run com.spotify.
 
 # Open Firefox and Obsidian in workspace 4 (WORK BROWSER)
 exec --no-startup-id sleep 7; i3-msg 'workspace 4; exec flatpak run md.obsidian.Obsidian'
-exec --no-startup-id sleep 7; i3-msg 'workspace 4; exec env HOME="$CUSTOM_DATA_FOLDER" flatpak run md.obsidian.Obsidian'
+exec --no-startup-id sleep 7; i3-msg 'workspace 4; exec --no-startup-id $HOME/bin/obsidian-II'
 
 # Open Signal, Discord in workspace 5 (ALWAYS OPEN COMMS)
 exec --no-startup-id sleep 11; i3-msg 'workspace 5; exec flatpak run org.signal.Signal'
