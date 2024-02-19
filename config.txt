@@ -192,8 +192,8 @@ exec --no-startup-id sleep 2; i3-msg 'workspace 2; exec flatpak run com.spotify.
 # Free worksace on 3
 exec --no-startup-id sleep 4; i3-msg 'workspace 4; exec --no-startup-id $HOME/bin/browser-II'
 
-# Open Firefox and Obsidian in workspace 4 (WORK BROWSER)
-exec --no-startup-id sleep 7; i3-msg 'workspace 4; exec flatpak run md.obsidian.Obsidian'
+# Open Obsidian in workspace 4.. the XCURSORSIZE is for a weird bug that auto sets a bigass cursor for the main obsidian
+exec --no-startup-id sleep 7; i3-msg 'workspace 4; exec env XCURSOR_SIZE=24 flatpak run md.obsidian.Obsidian'
 exec --no-startup-id sleep 7; i3-msg 'workspace 4; exec --no-startup-id $HOME/bin/obsidian-II'
 
 # Open Signal, Discord in workspace 5 (ALWAYS OPEN COMMS)
