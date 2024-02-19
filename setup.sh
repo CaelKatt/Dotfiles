@@ -203,13 +203,21 @@ echo "Reloading i3..."
 i3-msg reload
 i3-msg restart
 
+# OTHER ADDITIONAL SCRIPTS
+# Veracrypt inst
 chmod +x install_veracrypt.sh
 sudo ./install_veracrypt.sh\
 
+#Nvim Inst
 chmod +x nviminst.sh
 ./nviminst.sh
 
+#Tmux inst
 chmod +x tmux_setup.sh
 ./tmux_setup.sh
+
+#Duplicate Flatpaks inst
+chmod +x fpdupes.sh
+./fpdupes.sh
 
 echo "Setup complete!"
