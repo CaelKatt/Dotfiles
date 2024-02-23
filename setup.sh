@@ -220,4 +220,7 @@ chmod +x tmux_setup.sh
 chmod +x fpdupes.sh
 ./fpdupes.sh
 
+#IMP FUZZY FINDING 
+chmod +x fzf.sh
+./fzf.sh
 echo "Setup complete!"
