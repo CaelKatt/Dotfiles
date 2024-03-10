@@ -206,6 +206,16 @@ exec --no-startup-id sleep 20; i3-msg 'workspace 6; exec veracrypt'
 exec --no-startup-id sleep 20; i3-msg 'workspace 6; exec flatpak run com.bitwarden.desktop'
 exec --no-startup-id sleep 20; i3-msg 'workspace 6; exec gnome-control-center'
 
+# Screenshots https://gist.github.com/dianjuar/ee774561a8bc02b077989bc17424a19f
+bindsym Print exec --no-startup-id maim "/home/$USER/Pictures/$(date)"
+bindsym $mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) "/home/$USER/Pictures/$(date)"
+bindsym Shift+Print exec --no-startup-id maim --select "/home/$USER/Pictures/$(date)"
+
+## Clipboard Screenshots
+bindsym Ctrl+Print exec --no-startup-id maim | xclip -selection clipboard -t image/png
+bindsym Ctrl+$mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
+bindsym Ctrl+Shift+Print exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
+
 # ---------------------------------------
 # BAR CONFIG
 # ---------------------------------------
