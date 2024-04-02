@@ -224,3 +224,7 @@ chmod +x fpdupes.sh
 chmod +x fzf.sh
 ./fzf.sh
 echo "Setup complete!"
+
+#Keybind config
+chmod +x keybinds.sh
+./keybinds.sh
