@@ -182,23 +182,24 @@ exec --no-startup-id nm-applet
 exec i3-config-wizard
 
 
-# Open Alacritty in workspace 1 (IDE)
+# WS1 (IDE)
 exec --no-startup-id sleep 1; i3-msg 'workspace 1; exec alacritty'
+exec --no-startup-id sleep 2; i3-msg 'workspace 1; exec code'
 
-# Open Brave and Spotify in workspace 2 (MEDIA BROWSER/MEDIA)
+# WS2
 exec --no-startup-id sleep 2; i3-msg 'workspace 2; exec flatpak run com.brave.Browser'
-exec --no-startup-id sleep 2; i3-msg 'workspace 2; exec flatpak run com.spotify.Client'
 
-# Free worksace on 3
+# WS3
 exec --no-startup-id sleep 4; i3-msg 'workspace 3; exec --no-startup-id $HOME/bin/browser-II'
 
 # Open Obsidian in workspace 4.. the XCURSORSIZE is for a weird bug that auto sets a bigass cursor for the main obsidian
 exec --no-startup-id sleep 7; i3-msg 'workspace 4; exec env XCURSOR_SIZE=24 flatpak run md.obsidian.Obsidian'
 exec --no-startup-id sleep 7; i3-msg 'workspace 4; exec --no-startup-id $HOME/bin/obsidian-II'
 
-# Open Signal, Discord in workspace 5 (ALWAYS OPEN COMMS)
+# WS5
 exec --no-startup-id sleep 12; i3-msg 'workspace 5; exec flatpak run org.signal.Signal'
 exec --no-startup-id sleep 12; i3-msg 'workspace 5; exec flatpak run com.discordapp.Discord'
+exec --no-startup-id sleep 2; i3-msg 'workspace 5; exec flatpak run com.spotify.Client'
 
 # Open Veracrypt, Bitwarden, Thunar, Settings in workspace 6 (FILES/SECURITY)
 exec --no-startup-id sleep 20; i3-msg 'workspace 6; exec thunar'
@@ -206,15 +207,8 @@ exec --no-startup-id sleep 20; i3-msg 'workspace 6; exec veracrypt'
 exec --no-startup-id sleep 20; i3-msg 'workspace 6; exec flatpak run com.bitwarden.desktop'
 exec --no-startup-id sleep 20; i3-msg 'workspace 6; exec gnome-control-center'
 
-# Screenshots https://gist.github.com/dianjuar/ee774561a8bc02b077989bc17424a19f
-bindsym Print exec --no-startup-id maim "/home/$USER/Pictures/$(date)"
-bindsym $mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) "/home/$USER/Pictures/$(date)"
-bindsym Shift+Print exec --no-startup-id maim --select "/home/$USER/Pictures/$(date)"
-
-## Clipboard Screenshots
-bindsym Ctrl+Print exec --no-startup-id maim | xclip -selection clipboard -t image/png
-bindsym Ctrl+$mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
-bindsym Ctrl+Shift+Print exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
+# Screenshots Init
+exec flameshot
 
 # ---------------------------------------
 # BAR CONFIG
