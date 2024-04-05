@@ -184,10 +184,10 @@ exec i3-config-wizard
 
 # WS1 (IDE)
 exec --no-startup-id sleep 1; i3-msg 'workspace 1; exec alacritty'
-exec --no-startup-id sleep 2; i3-msg 'workspace 1; exec code'
+exec --no-startup-id sleep 1; i3-msg 'workspace 1; exec code'
 
 # WS2
-exec --no-startup-id sleep 2; i3-msg 'workspace 2; exec flatpak run com.brave.Browser'
+exec --no-startup-id sleep 3; i3-msg 'workspace 2; exec flatpak run com.brave.Browser'
 
 # WS3
 exec --no-startup-id sleep 4; i3-msg 'workspace 3; exec --no-startup-id $HOME/bin/browser-II'
@@ -199,7 +199,7 @@ exec --no-startup-id sleep 7; i3-msg 'workspace 4; exec --no-startup-id $HOME/bi
 # WS5
 exec --no-startup-id sleep 12; i3-msg 'workspace 5; exec flatpak run org.signal.Signal'
 exec --no-startup-id sleep 12; i3-msg 'workspace 5; exec flatpak run com.discordapp.Discord'
-exec --no-startup-id sleep 2; i3-msg 'workspace 5; exec flatpak run com.spotify.Client'
+exec --no-startup-id sleep 12; i3-msg 'workspace 5; exec flatpak run com.spotify.Client'
 
 # Open Veracrypt, Bitwarden, Thunar, Settings in workspace 6 (FILES/SECURITY)
 exec --no-startup-id sleep 20; i3-msg 'workspace 6; exec thunar'
